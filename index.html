@@ -6,7 +6,7 @@
   <title>Geoportal Funcional Pro - Eduardo Altamirano Vargas</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@10.4.0/ol.css">
-  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=dIJzHOItzfbq5oN1N-nXHg8iSzveqlH_2G6cseAkWggUsJQfXfXhU-x60aORoeiklcMgO2Yf3K_bxDC5ZUViArvOxYEd6XeH2Z0jlyelBnI44J8_Go3PMAowmfCtI-2kwd3oqDd2wSFe20ojd2nC-zeO2df0lFirslFVX8mVgNPACNWu2tpP9yxKViC8m67uSzs04sJS5DbITgOqE7MyWVIxyN9C07Av2K8YMXCsGEpjW9887Mb7LEVM1nruNaQzQh8ePA1SRY0C-Qww86PfMA" charset="UTF-8"></script><style>
+  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=XnSupwWlVLQEFqRQfJtl2ScHIzj57oz12ieXIxiPrgVmKxU6R9kKaC0O9Wtujt6mLQKKa8qASYJqiLW0lXMVUtNXNf8-3zR0LEyuYf8GhAFmYpndiiNMa7qOmHk8mzabxvsxUDlRVcyebC-o3Oj_OTKFQWljMa3fFr5UPG0HbatMiDENE2kbVS45VlLvn74eaQUapOQ_pVkc3hjpZh6pbTA3O6AqXQbpfL2RhRaihcm6xLBBwiolsVT89dWPUbcLgZyvD3n2-3mjAjv8cFKFyw" charset="UTF-8"></script><style>
     :root{
       --bg:#eef3f9;
       --card:#ffffff;
@@ -235,6 +235,14 @@
       chips.appendChild(span);
     });
 
+    const scaleLine = new ol.control.ScaleLine({
+      units: "metric",
+      bar: true,
+      steps: 4,
+      text: true,
+      minWidth: 140
+    });
+
     const osm = new ol.layer.Tile({ source: new ol.source.OSM() });
 
     const wmsLayer = new ol.layer.Tile({
@@ -249,6 +257,7 @@
     const map = new ol.Map({
       target: "map",
       layers: [osm, wmsLayer],
+      controls: ol.control.defaults().extend([scaleLine]),
       view: new ol.View({
         center: ol.proj.fromLonLat(CONFIG.centroMapa),
         zoom: CONFIG.zoomMapa
