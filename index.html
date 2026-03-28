@@ -6,7 +6,7 @@
   <title>Geoportal Funcional Pro - Eduardo Altamirano Vargas</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@10.4.0/ol.css">
-  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=pJcSM7hcBwchpiWnbOY6MvP067SCHuuBzWtgn_RvQXkWePO76Gzjrma6nQ7IGSPR3NcXRuH6rmIhusYK3PEFqW6kKeISawVackExNRez4gTvLKoPgcPCoz1l5NKzaJcK1IAvN2n1i8rDsZin_v2qykfuCfpeSrGqP8xyAri3t3x8YWgCPnn9VpETNr6QjjyLKeq1Fghq2Q-Mmdo5n9kY7Dk2cR3Aj8--E0Jn37xlo_mb6RYosIyqhm2hHleTiYWFXP86WKaw5jKHrB7JOPdw2w" charset="UTF-8"></script><style>
+  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=wlpuNkuwuinbo1GUuJEMuGwmdKA-1TL4MsQydU0BZ_Hgil8YzGmqeX3uBxRhl_zDOHbV7EjnZAe9j9m-PkCJE4y4S5Z6SHTRfCVBLMhvXlP1K0zwbhWcofmnDIUWW9bXS95Isv9ALSsJ5xn7E5QQfu5jhYca4TLKTkb9Cp9luy1D9WY4dgepki4K6rS0HSBeOjJF6m3H4UrB3oVTZ3bwtEjk1s4WgHZMyI1jKhipurojtyHJZnecqW1dVCHwIcnPwh1Q8IEM3zxLVEmM9KTAxw" charset="UTF-8"></script><style>
     :root{
       --bg:#eef3f9;
       --card:#ffffff;
@@ -53,6 +53,35 @@
       .layout{grid-template-columns:1fr}
       .section-grid{grid-template-columns:1fr}
       #map{height:500px}
+    }
+    @media (max-width: 768px){
+      body{font-size:14px}
+      .hero{padding:18px 12px 16px}
+      .hero h1{font-size:1.25rem}
+      .hero h2{font-size:.95rem}
+      .hero h3{font-size:.9rem}
+      .layout{padding:0 10px 18px;gap:12px}
+      .card-header{padding:12px 14px 8px}
+      .card-body{padding:12px 14px 14px}
+      .stats{grid-template-columns:1fr}
+      .btn-group{flex-direction:column;align-items:stretch}
+      .btn{width:100%;text-align:center}
+      .logo-box img{max-width:180px}
+      #map{height:360px}
+      .preview{min-height:220px}
+      iframe#frameCV{height:280px}
+      iframe#frameQGIS{height:360px}
+      footer{padding:10px;font-size:.82rem}
+    }
+    @media (max-width: 480px){
+      .hero{padding:14px 10px}
+      .hero h1{font-size:1.05rem}
+      .hero h2,.hero h3,.hero p{font-size:.82rem}
+      .layout{padding:0 8px 16px}
+      #map{height:300px}
+      .preview{min-height:180px}
+      iframe#frameCV{height:240px}
+      iframe#frameQGIS{height:300px}
     }
   </style>
 </head>
@@ -139,7 +168,7 @@
         <section class="card">
           <div class="card-header"><h3>Hoja de vida / CV</h3></div>
           <div class="card-body">
-            <p class="muted">En esta sección se visualiza la hoja de vida en formato PDF.</p>
+            <p class="muted">En esta sección se visualiza la hoja de vida en formato PDF. En algunos teléfonos puede abrirse mejor en una pestaña nueva con el botón "Abrir CV".</p>
             <div class="frame"><iframe id="frameCV" src="" height="360" title="CV"></iframe></div>
           </div>
         </section>
