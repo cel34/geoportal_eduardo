@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Geoportal Funcional - Eduardo Altamirano Vargas</title>
   <link rel="stylesheet" href="ol.css">
-  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=FDgwoVrlDWttTipGyDGecCojkOlVmdqbkHagBsVuDtyzRR5EWorzovi_gvpHrashRaChA6_rtf00rHLxt9k3NncFs_0g9d88DHM7bBHtis8CFgg6_t25YEV0Jmgy1RLwZoK3blezGkAcVMXM4puN1cmttPFsrjFCqzJL4gXfHI4Uq5qCH2Iwvu5YkwaLByy81yTdKdqTe0WRKebU8w0J4NZP0hPFjQcyJlIlcClWyFJFLsNBhv7DYZ7lpXOjnN3weFWO8g-OiXZgNdIc_7ibRw" charset="UTF-8"></script><style>
+  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=rSxLsrpuQtYl84ZpYoy9XImzCWYCe2eNEeg0_2UIYLBCGdC8MJzSZrTxFAoY67UJ1fnIjAwwiOkiQQQPx44NTLbGl4bJ5e75_G_x5Zsgo97VdFEXNe-OK3dBzGTKw6jVspEQV-g_mXMqLV_0b64iVfgvVDRRtC8j5pfQ4g7w3wGx6Si-YwKer0GID-uhmhAXE6nPxnR64RhUKm3dnvMMnJlLAO0rfjC-iw8DJ9bPJqdFPbgepafhw3BYkgdbsFg3teZh0zgd7og0GWUtsM042Q" charset="UTF-8"></script><style>
     :root{
       --bg:#eef3f9; --card:#ffffff; --line:#d9e2ef; --primary:#123c7a; --primary-2:#1e5cb3;
       --text:#1f2937; --muted:#6b7280; --shadow:0 10px 30px rgba(18,60,122,.10); --radius:18px;
@@ -38,6 +38,7 @@
     .stat .value{font-size:1rem;font-weight:bold;color:var(--primary);word-break:break-word}
     #map{width:100%;height:620px;background:#e5edf7}
     .coord-box{display:inline-block;background:#f8fbff;border:1px solid var(--line);padding:8px 10px;border-radius:10px}
+    .map-note{margin-top:8px;color:var(--muted);font-size:.9rem}
     iframe{width:100%;border:none;display:block;background:#fff}
     .frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}
     .preview{width:100%;min-height:300px;border:1px solid var(--line);border-radius:14px;object-fit:contain;background:#f7fafc}
@@ -127,6 +128,7 @@
           <div id="map"></div>
           <div class="card-body" style="padding-top:10px;">
             <div class="coord-box">Lat/Long: <span id="coordsText">mueva el cursor sobre el mapa</span></div>
+            <div class="map-note" id="mapNote"></div>
           </div>
         </div>
       </section>
@@ -259,56 +261,51 @@
     });
 
     const layerButtons = document.getElementById("layerButtons");
+    CONFIG.capas.forEach(function(capa){
+      const btn = document.createElement("button");
+      btn.className = "btn";
+      btn.textContent = capa.etiqueta;
+      btn.onclick = function(){
+        txt("capaInicial", capa.clave);
+        const note = document.getElementById("mapNote");
+        note.textContent = "Capa seleccionada: " + capa.etiqueta + ". Use \"Abrir WMS\" para consultar el servicio publicado.";
+      };
+      layerButtons.appendChild(btn);
+    });
+
+    const mapNote = document.getElementById("mapNote");
 
     if (typeof ol === "undefined") {
       document.getElementById("map").innerHTML = '<div style="padding:20px;color:#123c7a;font-weight:bold;">No se pudo cargar OpenLayers local.</div>';
     } else {
-      const osm = new ol.layer.Tile({
-        source: new ol.source.OSM()
-      });
+      try {
+        const osm = new ol.layer.Tile({
+          source: new ol.source.OSM()
+        });
 
-      const wmsLayer = new ol.layer.Tile({
-        source: new ol.source.TileWMS({
-          url: CONFIG.geoserverWmsBase,
-          params: {
-            LAYERS: CONFIG.workspaceReal + ":" + CONFIG.capaInicial,
-            TILED: true
-          },
-          serverType: "geoserver"
-        })
-      });
+        const scaleLine = new ol.control.ScaleLine({ units: "metric" });
 
-      const scaleLine = new ol.control.ScaleLine({ units: "metric" });
+        const map = new ol.Map({
+          target: "map",
+          layers: [osm],
+          controls: ol.control.defaults().extend([scaleLine]),
+          view: new ol.View({
+            center: ol.proj.fromLonLat(CONFIG.centroMapa),
+            zoom: CONFIG.zoomMapa
+          })
+        });
 
-      const map = new ol.Map({
-        target: "map",
-        layers: [osm, wmsLayer],
-        controls: ol.control.defaults().extend([scaleLine]),
-        view: new ol.View({
-          center: ol.proj.fromLonLat(CONFIG.centroMapa),
-          zoom: CONFIG.zoomMapa
-        })
-      });
+        map.on("pointermove", function(evt){
+          const lonLat = ol.proj.toLonLat(evt.coordinate);
+          document.getElementById("coordsText").textContent = lonLat[1].toFixed(6) + ", " + lonLat[0].toFixed(6);
+        });
 
-      map.on("pointermove", function(evt){
-        const lonLat = ol.proj.toLonLat(evt.coordinate);
-        document.getElementById("coordsText").textContent = lonLat[1].toFixed(6) + ", " + lonLat[0].toFixed(6);
-      });
-
-      CONFIG.capas.forEach(function(capa){
-        const btn = document.createElement("button");
-        btn.className = "btn";
-        btn.textContent = capa.etiqueta;
-        btn.onclick = function(){
-          txt("capaInicial", capa.clave);
-          wmsLayer.getSource().updateParams({
-            LAYERS: CONFIG.workspaceReal + ":" + capa.clave
-          });
-        };
-        layerButtons.appendChild(btn);
-      });
-
-      setTimeout(function(){ map.updateSize(); }, 500);
+        mapNote.textContent = "Mapa base OpenStreetMap activo. El servicio WMS puede consultarse desde el botón \"Abrir WMS\".";
+        setTimeout(function(){ map.updateSize(); }, 500);
+      } catch (e) {
+        document.getElementById("map").innerHTML = '<div style="padding:20px;color:#123c7a;font-weight:bold;">El visor base no pudo inicializarse.</div>';
+        console.error(e);
+      }
     }
   </script>
 </body>
