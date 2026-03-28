@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geoportal Funcional Pro - Eduardo Altamirano Vargas</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@10.4.0/ol.css">
+  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=VJVRoW_-M7IyMgJN55jGZlIU0ItK0nCX08xvdoYV-nau6z1Kn-OC8uY7s-IVuhUVBa5MGRu-fJidluJU5pwbmFNFyrIPGpOhNStW-XFI7XhqMWTBe9Terj3_MoOVn3BcmeQPKAJLbK80pEI09LzrxryC4JpsLVXuEodlY_DevPKV7cztatRNBae7QTJvxD5xiZFdFbDdHZ8ZZxAbyOtXL5z7U_BhbN6NdCMdB6Zm-mmyIsb2DB7ac8Aquv8ZOw4aKoDEQoyBrqj4O6cqGoWUNw" charset="UTF-8"></script><style>
+    :root{
+      --bg:#eef3f9;
+      --card:#ffffff;
+      --line:#d9e2ef;
+      --primary:#123c7a;
+      --primary-2:#1e5cb3;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --shadow:0 10px 30px rgba(18,60,122,.10);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Arial, Helvetica, sans-serif;background:var(--bg);color:var(--text)}
+    .hero{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;padding:28px 18px 22px;box-shadow:var(--shadow)}
+    .hero-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1.4fr .8fr;gap:18px;align-items:center}
+    .hero h1,.hero h2,.hero h3,.hero p{margin:6px 0}
+    .hero h1{font-size:1.9rem}.hero h2{font-size:1.15rem;font-weight:600}.hero h3{font-size:1rem;font-weight:600;opacity:.95}.hero p{opacity:.95}
+    .logo-box{display:flex;justify-content:center;align-items:center}
+    .logo-box img{max-width:280px;width:100%;background:#fff;border-radius:16px;padding:10px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+    .layout{max-width:1400px;margin:20px auto;padding:0 16px 24px;display:grid;grid-template-columns:340px 1fr;gap:18px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+    .card + .card{margin-top:18px}
+    .card-header{padding:16px 18px 10px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#fff,#f8fbff)}
+    .card-header h2,.card-header h3{margin:0;color:var(--primary)}
+    .card-body{padding:16px 18px 18px}
+    .muted{color:var(--muted);font-size:.94rem;line-height:1.45}
+    .chip{display:inline-block;font-size:.82rem;padding:6px 10px;border-radius:999px;background:#ecf3ff;color:var(--primary);margin:4px 6px 0 0;border:1px solid #cfe0ff}
+    .btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .btn{display:inline-block;text-decoration:none;border:none;cursor:pointer;padding:10px 13px;border-radius:12px;background:var(--primary);color:#fff;font-size:.94rem;transition:.2s ease}
+    .btn:hover{background:#0d2f61}.btn.secondary{background:#4b5563}.btn.secondary:hover{background:#374151}.btn.light{background:#edf4ff;color:var(--primary);border:1px solid #d2e3ff}.btn.light:hover{background:#dfeeff}
+    .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .stat{background:#f8fbff;border:1px solid var(--line);border-radius:14px;padding:12px}
+    .stat .label{font-size:.84rem;color:var(--muted);margin-bottom:5px}
+    .stat .value{font-size:1rem;font-weight:bold;color:var(--primary);word-break:break-word}
+    #map{width:100%;height:620px}
+    iframe{width:100%;border:none;display:block;background:#fff}
+    .frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}
+    .preview{width:100%;min-height:300px;border:1px solid var(--line);border-radius:14px;object-fit:contain;background:#f7fafc}
+    .section-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+    footer{margin:26px 0 0;padding:16px;text-align:center;color:#475569;font-size:.92rem}
+    @media (max-width: 1100px){
+      .hero-inner{grid-template-columns:1fr}
+      .layout{grid-template-columns:1fr}
+      .section-grid{grid-template-columns:1fr}
+      #map{height:500px}
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <h1 id="institucion"></h1>
+        <h2 id="programa"></h2>
+        <h3 id="modulo"></h3>
+        <p id="tituloGeoportal"></p>
+        <p><strong>Autor:</strong> <span id="autorHero"></span></p>
+        <p><strong>Correo:</strong> <span id="correoHero"></span></p>
+      </div>
+      <div class="logo-box">
+        <a id="linkUASB" href="https://www.uasb.edu.bo/" target="_blank" rel="noopener noreferrer" aria-label="Sitio oficial UASB">
+          <img id="logoInstitucional" src="" alt="">
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <section class="card">
+        <div class="card-header"><h2>Información general</h2></div>
+        <div class="card-body">
+          <div class="stats">
+            <div class="stat"><div class="label">Sistema de referencia</div><div class="value" id="srs"></div></div>
+            <div class="stat"><div class="label">Capa inicial</div><div class="value" id="capaInicial"></div></div>
+          </div>
+          <p class="muted" style="margin-top:12px;">Geoportal web para visualización y consulta de capas geográficas publicadas en GeoServer.</p>
+          <div id="chipsCapas"></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header"><h2>Capas del mapa</h2></div>
+        <div class="card-body">
+          <p class="muted">Seleccione una capa para visualizarla sobre el mapa base.</p>
+          <div class="btn-group" id="layerButtons"></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header"><h2>Enlaces rápidos</h2></div>
+        <div class="card-body">
+          <div class="btn-group">
+            <a class="btn" id="linkWMS" href="#" target="_blank" rel="noopener noreferrer">Abrir WMS</a>
+            <a class="btn secondary" id="linkCV" href="#" target="_blank" rel="noopener noreferrer">Abrir CV</a>
+            <a class="btn light" id="linkQGIS" href="#" target="_blank" rel="noopener noreferrer">Abrir QGIS Cloud</a>
+            <a class="btn light" id="linkUASBBtn" href="https://www.uasb.edu.bo/" target="_blank" rel="noopener noreferrer">Sitio oficial UASB</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header"><h2>Contacto</h2></div>
+        <div class="card-body">
+          <p><strong>Nombre:</strong> <span id="autorSide"></span></p>
+          <p><strong>Correo:</strong> <a id="correoLink" href=""></a></p>
+          <p><strong>Ubicación:</strong> Ciudad Juárez, México</p>
+          <p><strong>BBOX:</strong></p>
+          <p class="muted" id="bbox"></p>
+        </div>
+      </section>
+    </aside>
+
+    <section class="main-panel">
+      <section class="card">
+        <div class="card-header"><h2>Mapa principal interactivo</h2></div>
+        <div class="card-body" style="padding:0;"><div id="map"></div></div>
+      </section>
+
+      <div class="section-grid">
+        <section class="card">
+          <div class="card-header"><h3>Vista previa WMS</h3></div>
+          <div class="card-body">
+            <p class="muted">Vista previa de la capa publicada mediante el servicio WMS.</p>
+            <img id="wmsPreview" class="preview" alt="Vista previa WMS">
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-header"><h3>Hoja de vida / CV</h3></div>
+          <div class="card-body">
+            <p class="muted">En esta sección se visualiza la hoja de vida en formato PDF.</p>
+            <div class="frame"><iframe id="frameCV" src="" height="360" title="CV"></iframe></div>
+          </div>
+        </section>
+      </div>
+
+      <section class="card" style="margin-top:18px;">
+        <div class="card-header"><h3>Mapa embebido de QGIS Cloud</h3></div>
+        <div class="card-body">
+          <div class="frame"><iframe id="frameQGIS" src="" height="520" title="QGIS Cloud"></iframe></div>
+        </div>
+      </section>
+
+      <footer id="footerText"></footer>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/ol@10.4.0/dist/ol.js"></script>
+  <script>
+    const CONFIG = {
+      institucion: "UNIVERSIDAD ANDINA SIMÓN BOLÍVAR",
+      programa: "Maestría en Teledetección y SIG - Versión V",
+      modulo: "Módulo de Arquitecturas Web",
+      tituloGeoportal: "Geoportal Funcional Pro",
+      autor: "Eduardo Altamirano Vargas",
+      correo: "cel_34@hotmail.com",
+      anio: 2026,
+      logoURL: "https://cladera.org/foda/images/subcat-3619.jpg",
+      logoAlt: "Logotipo UASB",
+      urlCV: "file:///E:/AGROGEN%202024/MAESTRIA%20EN%20TELEDECTECCION%20Y%20SISTEMAS%20GEOGRAFICOS%20BOLIVIA/UNIDAD%2014/Tarea%20Geo%203/cv.pdf",
+      urlQGIS: "https://qgiscloud.com/cel34/MapaQCloud_ealtamirano2/",
+      wmsPreviewURL: "https://geoserver.idesinde.com:8443/geoserver/altamirano/wms?service=WMS&version=1.1.0&request=GetMap&layers=altamirano%3AVialidadWgs84&bbox=339066.5636%2C3481934.3625000007%2C377522.6485000001%2C3517734.8693000004&width=768&height=714&srs=EPSG%3A32613&styles=&format=image%2Fpng",
+      geoserverWmsBase: "https://geoserver.idesinde.com:8443/geoserver/altamirano/wms",
+      workspaceReal: "altamirano",
+      srs: "EPSG:32613",
+      bbox: [339066.5636, 3481934.3625, 377522.6485, 3517734.8693],
+      centroMapa: [-106.453050, 31.734983],
+      zoomMapa: 10,
+      capaInicial: "VialidadWgs84",
+      capas: [
+        { clave: "universidades", etiqueta: "Universidades" },
+        { clave: "VialidadWgs84", etiqueta: "Vialidades" },
+        { clave: "ColoniasWgs84", etiqueta: "Colonias" }
+      ]
+    };
+
+    function txt(id, value){ document.getElementById(id).textContent = value; }
+    txt("institucion", CONFIG.institucion);
+    txt("programa", CONFIG.programa);
+    txt("modulo", CONFIG.modulo);
+    txt("tituloGeoportal", CONFIG.tituloGeoportal);
+    txt("autorHero", CONFIG.autor);
+    txt("autorSide", CONFIG.autor);
+    txt("correoHero", CONFIG.correo);
+    txt("srs", CONFIG.srs);
+    txt("capaInicial", CONFIG.capaInicial);
+    txt("bbox", JSON.stringify(CONFIG.bbox));
+    txt("footerText", "© " + CONFIG.anio + " - " + CONFIG.autor + " | " + CONFIG.tituloGeoportal);
+
+    const logo = document.getElementById("logoInstitucional");
+    logo.src = CONFIG.logoURL;
+    logo.alt = CONFIG.logoAlt;
+
+    const correoLink = document.getElementById("correoLink");
+    correoLink.href = "mailto:" + CONFIG.correo;
+    correoLink.textContent = CONFIG.correo;
+
+    document.getElementById("linkWMS").href = CONFIG.wmsPreviewURL;
+    document.getElementById("linkCV").href = CONFIG.urlCV;
+    document.getElementById("linkQGIS").href = CONFIG.urlQGIS;
+    document.getElementById("frameCV").src = CONFIG.urlCV;
+    document.getElementById("frameQGIS").src = CONFIG.urlQGIS;
+    document.getElementById("wmsPreview").src = CONFIG.wmsPreviewURL;
+
+    const chips = document.getElementById("chipsCapas");
+    CONFIG.capas.forEach(function(c){
+      const span = document.createElement("span");
+      span.className = "chip";
+      span.textContent = c.etiqueta;
+      chips.appendChild(span);
+    });
+
+    const osm = new ol.layer.Tile({ source: new ol.source.OSM() });
+
+    const wmsLayer = new ol.layer.Tile({
+      source: new ol.source.TileWMS({
+        url: CONFIG.geoserverWmsBase,
+        params: { "LAYERS": CONFIG.workspaceReal + ":" + CONFIG.capaInicial, "TILED": true },
+        serverType: "geoserver",
+        transition: 0
+      })
+    });
+
+    const map = new ol.Map({
+      target: "map",
+      layers: [osm, wmsLayer],
+      view: new ol.View({
+        center: ol.proj.fromLonLat(CONFIG.centroMapa),
+        zoom: CONFIG.zoomMapa
+      })
+    });
+
+    const layerButtons = document.getElementById("layerButtons");
+    CONFIG.capas.forEach(function(capa){
+      const btn = document.createElement("button");
+      btn.className = "btn";
+      btn.textContent = capa.etiqueta;
+      btn.onclick = function(){
+        wmsLayer.getSource().updateParams({ "LAYERS": CONFIG.workspaceReal + ":" + capa.clave });
+      };
+      layerButtons.appendChild(btn);
+    });
+  </script>
+</body>
+</html>
