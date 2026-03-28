@@ -6,7 +6,7 @@
   <title>Geoportal Funcional Pro - Eduardo Altamirano Vargas</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@10.4.0/ol.css">
-  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=wlpuNkuwuinbo1GUuJEMuGwmdKA-1TL4MsQydU0BZ_Hgil8YzGmqeX3uBxRhl_zDOHbV7EjnZAe9j9m-PkCJE4y4S5Z6SHTRfCVBLMhvXlP1K0zwbhWcofmnDIUWW9bXS95Isv9ALSsJ5xn7E5QQfu5jhYca4TLKTkb9Cp9luy1D9WY4dgepki4K6rS0HSBeOjJF6m3H4UrB3oVTZ3bwtEjk1s4WgHZMyI1jKhipurojtyHJZnecqW1dVCHwIcnPwh1Q8IEM3zxLVEmM9KTAxw" charset="UTF-8"></script><style>
+  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=dIJzHOItzfbq5oN1N-nXHg8iSzveqlH_2G6cseAkWggUsJQfXfXhU-x60aORoeiklcMgO2Yf3K_bxDC5ZUViArvOxYEd6XeH2Z0jlyelBnI44J8_Go3PMAowmfCtI-2kwd3oqDd2wSFe20ojd2nC-zeO2df0lFirslFVX8mVgNPACNWu2tpP9yxKViC8m67uSzs04sJS5DbITgOqE7MyWVIxyN9C07Av2K8YMXCsGEpjW9887Mb7LEVM1nruNaQzQh8ePA1SRY0C-Qww86PfMA" charset="UTF-8"></script><style>
     :root{
       --bg:#eef3f9;
       --card:#ffffff;
@@ -36,6 +36,10 @@
     .muted{color:var(--muted);font-size:.94rem;line-height:1.45}
     .chip{display:inline-block;font-size:.82rem;padding:6px 10px;border-radius:999px;background:#ecf3ff;color:var(--primary);margin:4px 6px 0 0;border:1px solid #cfe0ff}
     .btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .download-group{margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
+    .download-group:first-child{margin-top:0;padding-top:0;border-top:none}
+    .download-title{font-weight:bold;color:var(--primary);margin-bottom:8px}
+
     .btn{display:inline-block;text-decoration:none;border:none;cursor:pointer;padding:10px 13px;border-radius:12px;background:var(--primary);color:#fff;font-size:.94rem;transition:.2s ease}
     .btn:hover{background:#0d2f61}.btn.secondary{background:#4b5563}.btn.secondary:hover{background:#374151}.btn.light{background:#edf4ff;color:var(--primary);border:1px solid #d2e3ff}.btn.light:hover{background:#dfeeff}
     .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -53,35 +57,6 @@
       .layout{grid-template-columns:1fr}
       .section-grid{grid-template-columns:1fr}
       #map{height:500px}
-    }
-    @media (max-width: 768px){
-      body{font-size:14px}
-      .hero{padding:18px 12px 16px}
-      .hero h1{font-size:1.25rem}
-      .hero h2{font-size:.95rem}
-      .hero h3{font-size:.9rem}
-      .layout{padding:0 10px 18px;gap:12px}
-      .card-header{padding:12px 14px 8px}
-      .card-body{padding:12px 14px 14px}
-      .stats{grid-template-columns:1fr}
-      .btn-group{flex-direction:column;align-items:stretch}
-      .btn{width:100%;text-align:center}
-      .logo-box img{max-width:180px}
-      #map{height:360px}
-      .preview{min-height:220px}
-      iframe#frameCV{height:280px}
-      iframe#frameQGIS{height:360px}
-      footer{padding:10px;font-size:.82rem}
-    }
-    @media (max-width: 480px){
-      .hero{padding:14px 10px}
-      .hero h1{font-size:1.05rem}
-      .hero h2,.hero h3,.hero p{font-size:.82rem}
-      .layout{padding:0 8px 16px}
-      #map{height:300px}
-      .preview{min-height:180px}
-      iframe#frameCV{height:240px}
-      iframe#frameQGIS{height:300px}
     }
   </style>
 </head>
@@ -138,6 +113,15 @@
         </div>
       </section>
 
+
+      <section class="card">
+        <div class="card-header"><h2>Descarga de capas</h2></div>
+        <div class="card-body">
+          <p class="muted">Descargue las capas publicadas desde GeoServer en formatos Shapefile, KML y GML.</p>
+          <div id="downloadButtons"></div>
+        </div>
+      </section>
+
       <section class="card">
         <div class="card-header"><h2>Contacto</h2></div>
         <div class="card-body">
@@ -168,7 +152,7 @@
         <section class="card">
           <div class="card-header"><h3>Hoja de vida / CV</h3></div>
           <div class="card-body">
-            <p class="muted">En esta sección se visualiza la hoja de vida en formato PDF. En algunos teléfonos puede abrirse mejor en una pestaña nueva con el botón "Abrir CV".</p>
+            <p class="muted">En esta sección se visualiza la hoja de vida en formato PDF.</p>
             <div class="frame"><iframe id="frameCV" src="" height="360" title="CV"></iframe></div>
           </div>
         </section>
@@ -202,6 +186,7 @@
       wmsPreviewURL: "https://geoserver.idesinde.com:8443/geoserver/altamirano/wms?service=WMS&version=1.1.0&request=GetMap&layers=altamirano%3AVialidadWgs84&bbox=339066.5636%2C3481934.3625000007%2C377522.6485000001%2C3517734.8693000004&width=768&height=714&srs=EPSG%3A32613&styles=&format=image%2Fpng",
       geoserverWmsBase: "https://geoserver.idesinde.com:8443/geoserver/altamirano/wms",
       workspaceReal: "altamirano",
+      wfsBase: "https://geoserver.idesinde.com:8443/geoserver/ows",
       srs: "EPSG:32613",
       bbox: [339066.5636, 3481934.3625, 377522.6485, 3517734.8693],
       centroMapa: [-106.453050, 31.734983],
@@ -280,6 +265,53 @@
       };
       layerButtons.appendChild(btn);
     });
+
+    function buildDownloadUrl(typeName, outputFormat){
+      const params = new URLSearchParams({
+        service: "WFS",
+        version: "1.0.0",
+        request: "GetFeature",
+        typeName: CONFIG.workspaceReal + ":" + typeName,
+        outputFormat: outputFormat
+      });
+      return CONFIG.wfsBase + "?" + params.toString();
+    }
+
+    const downloadButtons = document.getElementById("downloadButtons");
+    if (downloadButtons){
+      const formatos = [
+        { etiqueta: "SHP", valor: "shape-zip" },
+        { etiqueta: "KML", valor: "KML" },
+        { etiqueta: "GML", valor: "GML2" }
+      ];
+
+      CONFIG.capas.forEach(function(capa){
+        const grupo = document.createElement("div");
+        grupo.className = "download-group";
+
+        const titulo = document.createElement("div");
+        titulo.className = "download-title";
+        titulo.textContent = capa.etiqueta;
+        grupo.appendChild(titulo);
+
+        const fila = document.createElement("div");
+        fila.className = "btn-group";
+
+        formatos.forEach(function(formato){
+          const a = document.createElement("a");
+          a.className = "btn";
+          a.href = buildDownloadUrl(capa.clave, formato.valor);
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+          a.textContent = formato.etiqueta;
+          fila.appendChild(a);
+        });
+
+        grupo.appendChild(fila);
+        downloadButtons.appendChild(grupo);
+      });
+    }
+
   </script>
 </body>
 </html>
