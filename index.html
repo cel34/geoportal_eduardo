@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Geoportal Funcional - Eduardo Altamirano Vargas</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@10.4.0/ol.css">
-  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=kdrXKV3Cc3lqwWtu94Lkuu4RK9qqb7B2Su45uhIGcnzGFiOd7FLuQcFyrSNQjz7SsEf6PedgT98DdGhTbrsz5RLa-_yQHjJhs1lOo9gG-kZT7dVnPF4F7anQgtYL7qj8qSqvHHmniz6PzA1Htil6kfAGioIrrX7sjfLaRDJzZj5xjcwJaTroql0Un4Cs5lm4rYV8lPcPmsLfKLiLvFNrTs9C1x_7znvCSwy0XujOUSjGCV8hk9GxlYyj4_e6qEJhkvSfp0RpK4l52jBkj5u9bA" charset="UTF-8"></script><style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/openlayers/10.4.0/ol.min.css">
+  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=t4Sm4WViHYeOPLnCSvwuuVuepAYzMq6tSKDcOvYEjN6aYD7WFnXzrbq2G9wg0pJpgtfvg9LXeu0ejmwg6-6lwjUCHDDemq1HNxXjegIC9hBiMLlLLns0DRcqeO5JZrhhoamwS1TLktoZ9FHM_Dix1b6qdJVbqtcLx_mmBmRBj4pXCI_yeY3OSEfgYjjprxGynkeiwSnwftVvS6vCWdoQZA0J2XmaTxmOVXI-aeHD48nHsqg6JH_9_2HPEYdeP_qcDt6wYVVn1koOWiyyCZL3lw" charset="UTF-8"></script><style>
     :root{
       --bg:#eef3f9; --card:#ffffff; --line:#d9e2ef; --primary:#123c7a; --primary-2:#1e5cb3;
       --text:#1f2937; --muted:#6b7280; --shadow:0 10px 30px rgba(18,60,122,.10); --radius:18px;
@@ -160,7 +160,7 @@
     </section>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/ol@10.4.0/dist/ol.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/openlayers/10.4.0/dist/ol.min.js"></script>
   <script>
     const CONFIG = {
       institucion: "UNIVERSIDAD ANDINA SIMÓN BOLÍVAR",
@@ -210,6 +210,13 @@
     const correoLink = document.getElementById("correoLink");
     correoLink.href = "mailto:" + CONFIG.correo;
     correoLink.textContent = CONFIG.correo;
+
+
+    if (typeof ol === "undefined") {
+      const mapDiv = document.getElementById("map");
+      mapDiv.innerHTML = '<div style="padding:20px;color:#123c7a;font-weight:bold;">No se pudo cargar el visor OpenLayers. Recargue la página o pruebe de nuevo en unos minutos.</div>';
+      throw new Error("OpenLayers no cargó");
+    }
 
     const chips = document.getElementById("chipsCapas");
     CONFIG.capas.forEach(function(c){
