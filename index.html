@@ -6,7 +6,7 @@
   <title>Geoportal Funcional Pro - Eduardo Altamirano Vargas</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@10.4.0/ol.css">
-  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=sqN_ZFEx3fLfgHb0zUL_dKrDdqTFuWAl6sotcBi63VHHXfwKReWRp_Juf1RgNq_vkKxI6WqURrRiyXDF1F0ZPW3s2f9jz0XoVwd6wjMX8qK51MbamyZWag54eJUiYwjdC5YBeUSAfJZjYw_yfu4CX0ZsKwsgVH0nKw7DN7JMk7vV5GIhylh98FXfOcAnmz08FD-M8-NoyaPUUJrnJAuytepgdTQ7GYNFz2OaiZ9KRKSSt3dipOytuoeavEGxKRzW5NoKRpCJwD8ZUcs22TAT5Q" charset="UTF-8"></script><style>
+  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=DY6BWkgpFRL4FAIQFol6BBD1a8ebhuoX2FKWPBTPW8RdiUYbEj9o2Kyfj9BLXl0khrDnO-QjNUcZwoP3cF-WJsv2ce-XcSg1FPl8_5aJMpPoCuFFXdy0k0myszML6gk_Q8RhiU7my6hwdd7rmYzjg3PEwA1CSv7M6X9UFzpXlhSv7Q9_U90qdjHZ-FlPvsakXzB3oA6_Zc9_1t7xDJ8ka17vLGafheqho4_hkoAaqipHK0wbBXvE-yR89ra6xsvZNdB2IPGVr1HnqJLKf321kg" charset="UTF-8"></script><style>
     :root{
       --bg:#eef3f9;
       --card:#ffffff;
@@ -24,9 +24,14 @@
     .hero{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;padding:28px 18px 22px;box-shadow:var(--shadow)}
     .hero-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1.4fr .8fr;gap:18px;align-items:center}
     .hero h1,.hero h2,.hero h3,.hero p{margin:6px 0}
-    .hero h1{font-size:1.9rem}.hero h2{font-size:1.15rem;font-weight:600}.hero h3{font-size:1rem;font-weight:600;opacity:.95}.hero p{opacity:.95}
+    .hero h1{font-size:1.9rem}
+    .hero h2{font-size:1.15rem;font-weight:600}
+    .hero h3{font-size:1rem;font-weight:600;opacity:.95}
+    .hero p{opacity:.95}
     .logo-box{display:flex;justify-content:center;align-items:center}
+    .logo-box a{display:inline-block}
     .logo-box img{max-width:280px;width:100%;background:#fff;border-radius:16px;padding:10px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+
     .layout{max-width:1400px;margin:20px auto;padding:0 16px 24px;display:grid;grid-template-columns:340px 1fr;gap:18px}
     .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
     .card + .card{margin-top:18px}
@@ -36,27 +41,63 @@
     .muted{color:var(--muted);font-size:.94rem;line-height:1.45}
     .chip{display:inline-block;font-size:.82rem;padding:6px 10px;border-radius:999px;background:#ecf3ff;color:var(--primary);margin:4px 6px 0 0;border:1px solid #cfe0ff}
     .btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-    .download-group{margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
-    .download-group:first-child{margin-top:0;padding-top:0;border-top:none}
-    .download-title{font-weight:bold;color:var(--primary);margin-bottom:8px}
-
     .btn{display:inline-block;text-decoration:none;border:none;cursor:pointer;padding:10px 13px;border-radius:12px;background:var(--primary);color:#fff;font-size:.94rem;transition:.2s ease}
-    .btn:hover{background:#0d2f61}.btn.secondary{background:#4b5563}.btn.secondary:hover{background:#374151}.btn.light{background:#edf4ff;color:var(--primary);border:1px solid #d2e3ff}.btn.light:hover{background:#dfeeff}
+    .btn:hover{background:#0d2f61}
+    .btn.secondary{background:#4b5563}
+    .btn.secondary:hover{background:#374151}
+    .btn.light{background:#edf4ff;color:var(--primary);border:1px solid #d2e3ff}
+    .btn.light:hover{background:#dfeeff}
     .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     .stat{background:#f8fbff;border:1px solid var(--line);border-radius:14px;padding:12px}
     .stat .label{font-size:.84rem;color:var(--muted);margin-bottom:5px}
     .stat .value{font-size:1rem;font-weight:bold;color:var(--primary);word-break:break-word}
+    .download-group{margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
+    .download-group:first-child{margin-top:0;padding-top:0;border-top:none}
+    .download-title{font-weight:bold;color:var(--primary);margin-bottom:8px}
+
     #map{width:100%;height:620px}
+    .map-info{margin-top:8px;font-size:.9rem;color:var(--muted)}
+    .coord-box{display:inline-block;background:#f8fbff;border:1px solid var(--line);padding:8px 10px;border-radius:10px}
     iframe{width:100%;border:none;display:block;background:#fff}
     .frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}
     .preview{width:100%;min-height:300px;border:1px solid var(--line);border-radius:14px;object-fit:contain;background:#f7fafc}
     .section-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
     footer{margin:26px 0 0;padding:16px;text-align:center;color:#475569;font-size:.92rem}
+
     @media (max-width: 1100px){
       .hero-inner{grid-template-columns:1fr}
       .layout{grid-template-columns:1fr}
       .section-grid{grid-template-columns:1fr}
       #map{height:500px}
+    }
+    @media (max-width: 768px){
+      body{font-size:14px}
+      .hero{padding:18px 12px 16px}
+      .hero h1{font-size:1.25rem}
+      .hero h2{font-size:.95rem}
+      .hero h3{font-size:.9rem}
+      .layout{padding:0 10px 18px;gap:12px}
+      .card-header{padding:12px 14px 8px}
+      .card-body{padding:12px 14px 14px}
+      .stats{grid-template-columns:1fr}
+      .btn-group{flex-direction:column;align-items:stretch}
+      .btn{width:100%;text-align:center}
+      .logo-box img{max-width:180px}
+      #map{height:360px}
+      .preview{min-height:220px}
+      iframe#frameCV{height:280px}
+      iframe#frameQGIS{height:360px}
+      footer{padding:10px;font-size:.82rem}
+    }
+    @media (max-width: 480px){
+      .hero{padding:14px 10px}
+      .hero h1{font-size:1.05rem}
+      .hero h2,.hero h3,.hero p{font-size:.82rem}
+      .layout{padding:0 8px 16px}
+      #map{height:300px}
+      .preview{min-height:180px}
+      iframe#frameCV{height:240px}
+      iframe#frameQGIS{height:300px}
     }
   </style>
 </head>
@@ -72,7 +113,7 @@
         <p><strong>Correo:</strong> <span id="correoHero"></span></p>
       </div>
       <div class="logo-box">
-        <a id="linkUASB" href="https://www.uasb.edu.bo/" target="_blank" rel="noopener noreferrer" aria-label="Sitio oficial UASB">
+        <a href="https://www.uasb.edu.bo/" target="_blank" rel="noopener noreferrer" aria-label="Sitio oficial UASB">
           <img id="logoInstitucional" src="" alt="">
         </a>
       </div>
@@ -106,13 +147,12 @@
         <div class="card-body">
           <div class="btn-group">
             <a class="btn" id="linkWMS" href="#" target="_blank" rel="noopener noreferrer">Abrir WMS</a>
-            <a class="btn secondary" id="linkCV" href="#" target="_blank" rel="noopener noreferrer">Abrir CV</a>
+            <a class="btn secondary" id="linkCV" href="cv.pdf" target="_blank" rel="noopener noreferrer">Abrir CV</a>
             <a class="btn light" id="linkQGIS" href="#" target="_blank" rel="noopener noreferrer">Abrir QGIS Cloud</a>
-            <a class="btn light" id="linkUASBBtn" href="https://www.uasb.edu.bo/" target="_blank" rel="noopener noreferrer">Sitio oficial UASB</a>
+            <a class="btn light" href="https://www.uasb.edu.bo/" target="_blank" rel="noopener noreferrer">Sitio oficial UASB</a>
           </div>
         </div>
       </section>
-
 
       <section class="card">
         <div class="card-header"><h2>Descarga de capas</h2></div>
@@ -137,23 +177,28 @@
     <section class="main-panel">
       <section class="card">
         <div class="card-header"><h2>Mapa principal interactivo</h2></div>
-        <div class="card-body" style="padding:0;"><div id="map"></div></div>
+        <div class="card-body" style="padding:0;">
+          <div id="map"></div>
+          <div class="card-body" style="padding-top:10px;">
+            <div class="coord-box">Lat/Long: <span id="coordsText">mueva el cursor sobre el mapa</span></div>
+          </div>
+        </div>
       </section>
 
       <div class="section-grid">
         <section class="card">
           <div class="card-header"><h3>Vista previa WMS</h3></div>
           <div class="card-body">
-            <p class="muted">Vista previa de la capa publicada mediante el servicio WMS.</p>
-            <img id="wmsPreview" class="preview" alt="Vista previa WMS">
+            <p class="muted">Imagen de referencia de la capa publicada mediante el servicio WMS.</p>
+            <img id="wmsPreview" class="preview" alt="Vista previa WMS" src="wms_preview.png">
           </div>
         </section>
 
         <section class="card">
           <div class="card-header"><h3>Hoja de vida / CV</h3></div>
           <div class="card-body">
-            <p class="muted">En esta sección se visualiza la hoja de vida en formato PDF.</p>
-            <div class="frame"><iframe id="frameCV" src="" height="360" title="CV"></iframe></div>
+            <p class="muted">En esta sección se visualiza la hoja de vida en formato PDF. En algunos teléfonos puede abrirse mejor en una pestaña nueva con el botón "Abrir CV".</p>
+            <div class="frame"><iframe id="frameCV" src="cv.pdf" height="360" title="CV"></iframe></div>
           </div>
         </section>
       </div>
@@ -183,10 +228,10 @@
       logoAlt: "Logotipo UASB",
       urlCV: "cv.pdf",
       urlQGIS: "https://qgiscloud.com/cel34/MapaQCloud_ealtamirano2/",
-      wmsPreviewURL: "https://geoserver.idesinde.com:8443/geoserver/altamirano/wms?service=WMS&version=1.1.0&request=GetMap&layers=altamirano%3AVialidadWgs84&bbox=339066.5636%2C3481934.3625000007%2C377522.6485000001%2C3517734.8693000004&width=768&height=714&srs=EPSG%3A32613&styles=&format=image%2Fpng",
+      wmsOpenUrl: "https://geoserver.idesinde.com:8443/geoserver/altamirano/wms?service=WMS&version=1.1.0&request=GetMap&layers=altamirano%3AVialidadWgs84&bbox=339066.5636%2C3481934.3625000007%2C377522.6485000001%2C3517734.8693000004&width=768&height=714&srs=EPSG%3A32613&styles=&format=image%2Fpng",
       geoserverWmsBase: "https://geoserver.idesinde.com:8443/geoserver/altamirano/wms",
-      workspaceReal: "altamirano",
       wfsBase: "https://geoserver.idesinde.com:8443/geoserver/ows",
+      workspaceReal: "altamirano",
       srs: "EPSG:32613",
       bbox: [339066.5636, 3481934.3625, 377522.6485, 3517734.8693],
       centroMapa: [-106.453050, 31.734983],
@@ -220,12 +265,9 @@
     correoLink.href = "mailto:" + CONFIG.correo;
     correoLink.textContent = CONFIG.correo;
 
-    document.getElementById("linkWMS").href = CONFIG.wmsPreviewURL;
-    document.getElementById("linkCV").href = CONFIG.urlCV;
+    document.getElementById("linkWMS").href = CONFIG.wmsOpenUrl;
     document.getElementById("linkQGIS").href = CONFIG.urlQGIS;
-    document.getElementById("frameCV").src = CONFIG.urlCV;
     document.getElementById("frameQGIS").src = CONFIG.urlQGIS;
-    document.getElementById("wmsPreview").src = CONFIG.wmsPreviewURL;
 
     const chips = document.getElementById("chipsCapas");
     CONFIG.capas.forEach(function(c){
@@ -235,16 +277,63 @@
       chips.appendChild(span);
     });
 
-    const scaleLine = new ol.control.ScaleLine({
-      units: "metric"
+    function buildDownloadUrl(typeName, outputFormat){
+      const params = new URLSearchParams({
+        service: "WFS",
+        version: "1.0.0",
+        request: "GetFeature",
+        typeName: CONFIG.workspaceReal + ":" + typeName,
+        outputFormat: outputFormat
+      });
+      return CONFIG.wfsBase + "?" + params.toString();
+    }
+
+    const downloadButtons = document.getElementById("downloadButtons");
+    const formatos = [
+      { etiqueta: "SHP", valor: "shape-zip" },
+      { etiqueta: "KML", valor: "KML" },
+      { etiqueta: "GML", valor: "GML2" }
+    ];
+
+    CONFIG.capas.forEach(function(capa){
+      const grupo = document.createElement("div");
+      grupo.className = "download-group";
+
+      const titulo = document.createElement("div");
+      titulo.className = "download-title";
+      titulo.textContent = capa.etiqueta;
+      grupo.appendChild(titulo);
+
+      const fila = document.createElement("div");
+      fila.className = "btn-group";
+
+      formatos.forEach(function(formato){
+        const a = document.createElement("a");
+        a.className = "btn";
+        a.href = buildDownloadUrl(capa.clave, formato.valor);
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.textContent = formato.etiqueta;
+        fila.appendChild(a);
+      });
+
+      grupo.appendChild(fila);
+      downloadButtons.appendChild(grupo);
     });
 
-    const osm = new ol.layer.Tile({ source: new ol.source.OSM() });
+    const scaleLine = new ol.control.ScaleLine({ units: "metric" });
+
+    const osm = new ol.layer.Tile({
+      source: new ol.source.OSM()
+    });
 
     const wmsLayer = new ol.layer.Tile({
       source: new ol.source.TileWMS({
         url: CONFIG.geoserverWmsBase,
-        params: { "LAYERS": CONFIG.workspaceReal + ":" + CONFIG.capaInicial, "TILED": true },
+        params: {
+          "LAYERS": CONFIG.workspaceReal + ":" + CONFIG.capaInicial,
+          "TILED": true
+        },
         serverType: "geoserver",
         transition: 0
       })
@@ -260,63 +349,25 @@
       })
     });
 
+    const coordsText = document.getElementById("coordsText");
+    map.on("pointermove", function(evt){
+      const lonLat = ol.proj.toLonLat(evt.coordinate);
+      coordsText.textContent = lonLat[1].toFixed(6) + ", " + lonLat[0].toFixed(6);
+    });
+
     const layerButtons = document.getElementById("layerButtons");
     CONFIG.capas.forEach(function(capa){
       const btn = document.createElement("button");
       btn.className = "btn";
       btn.textContent = capa.etiqueta;
       btn.onclick = function(){
-        wmsLayer.getSource().updateParams({ "LAYERS": CONFIG.workspaceReal + ":" + capa.clave });
+        wmsLayer.getSource().updateParams({
+          "LAYERS": CONFIG.workspaceReal + ":" + capa.clave
+        });
+        txt("capaInicial", capa.clave);
       };
       layerButtons.appendChild(btn);
     });
-
-    function buildDownloadUrl(typeName, outputFormat){
-      const params = new URLSearchParams({
-        service: "WFS",
-        version: "1.0.0",
-        request: "GetFeature",
-        typeName: CONFIG.workspaceReal + ":" + typeName,
-        outputFormat: outputFormat
-      });
-      return CONFIG.wfsBase + "?" + params.toString();
-    }
-
-    const downloadButtons = document.getElementById("downloadButtons");
-    if (downloadButtons){
-      const formatos = [
-        { etiqueta: "SHP", valor: "shape-zip" },
-        { etiqueta: "KML", valor: "KML" },
-        { etiqueta: "GML", valor: "GML2" }
-      ];
-
-      CONFIG.capas.forEach(function(capa){
-        const grupo = document.createElement("div");
-        grupo.className = "download-group";
-
-        const titulo = document.createElement("div");
-        titulo.className = "download-title";
-        titulo.textContent = capa.etiqueta;
-        grupo.appendChild(titulo);
-
-        const fila = document.createElement("div");
-        fila.className = "btn-group";
-
-        formatos.forEach(function(formato){
-          const a = document.createElement("a");
-          a.className = "btn";
-          a.href = buildDownloadUrl(capa.clave, formato.valor);
-          a.target = "_blank";
-          a.rel = "noopener noreferrer";
-          a.textContent = formato.etiqueta;
-          fila.appendChild(a);
-        });
-
-        grupo.appendChild(fila);
-        downloadButtons.appendChild(grupo);
-      });
-    }
-
   </script>
 </body>
 </html>
