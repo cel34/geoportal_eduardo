@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Geoportal Funcional - Eduardo Altamirano Vargas</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/openlayers/10.4.0/ol.min.css">
-  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=t4Sm4WViHYeOPLnCSvwuuVuepAYzMq6tSKDcOvYEjN6aYD7WFnXzrbq2G9wg0pJpgtfvg9LXeu0ejmwg6-6lwjUCHDDemq1HNxXjegIC9hBiMLlLLns0DRcqeO5JZrhhoamwS1TLktoZ9FHM_Dix1b6qdJVbqtcLx_mmBmRBj4pXCI_yeY3OSEfgYjjprxGynkeiwSnwftVvS6vCWdoQZA0J2XmaTxmOVXI-aeHD48nHsqg6JH_9_2HPEYdeP_qcDt6wYVVn1koOWiyyCZL3lw" charset="UTF-8"></script><style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@6.15.1/ol.css">
+  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=1DkIbR4oPAN5012z68wwS5PK-Z4vuPzrhDZ_pQItLGWL2TMUmoIE-H_mh2oWdSMqQUfEsgMczeODzISDMNQpX306cwg2BlAQukAV8g7BwN7Hc3FQqRBaxjwPeILbinXngwvp4G28BpVz8GzV2TcBPGN6Q-tiMvlz7wkzJP5F2RwIaUNOOeE8qOgi02d4tByJ9oB5lBsaINesaYbqP-2hsv56JGu7BlsPvu61mEV3VxkL9_sKG-JELjcJ6mrH2yw0TyyHiX_eS_hPtZjB4Qi-vg" charset="UTF-8"></script><style>
     :root{
       --bg:#eef3f9; --card:#ffffff; --line:#d9e2ef; --primary:#123c7a; --primary-2:#1e5cb3;
       --text:#1f2937; --muted:#6b7280; --shadow:0 10px 30px rgba(18,60,122,.10); --radius:18px;
@@ -136,7 +136,7 @@
           <div class="card-header"><h3>Vista previa WMS</h3></div>
           <div class="card-body">
             <p class="muted">Imagen de referencia de la capa publicada mediante el servicio WMS.</p>
-            <img id="wmsPreview" class="preview" alt="Vista previa WMS" src="wms_preview.png">
+            <img class="preview" alt="Vista previa WMS" src="wms_preview.png">
           </div>
         </section>
 
@@ -160,7 +160,7 @@
     </section>
   </main>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/openlayers/10.4.0/dist/ol.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ol@6.15.1/dist/ol.js"></script>
   <script>
     const CONFIG = {
       institucion: "UNIVERSIDAD ANDINA SIMÓN BOLÍVAR",
@@ -174,7 +174,6 @@
       logoAlt: "Logotipo UASB",
       urlQGIS: "https://qgiscloud.com/cel34/MapaQCloud_ealtamirano2/",
       wmsOpenUrl: "https://geoserver.idesinde.com:8443/geoserver/altamirano/wms?service=WMS&version=1.1.0&request=GetMap&layers=altamirano%3AVialidadWgs84&bbox=339066.5636%2C3481934.3625000007%2C377522.6485000001%2C3517734.8693000004&width=768&height=714&srs=EPSG%3A32613&styles=&format=image%2Fpng",
-      geoserverWmsBase: "https://geoserver.idesinde.com:8443/geoserver/altamirano/wms",
       wfsBase: "https://geoserver.idesinde.com:8443/geoserver/ows",
       workspaceReal: "altamirano",
       srs: "EPSG:32613",
@@ -210,13 +209,6 @@
     const correoLink = document.getElementById("correoLink");
     correoLink.href = "mailto:" + CONFIG.correo;
     correoLink.textContent = CONFIG.correo;
-
-
-    if (typeof ol === "undefined") {
-      const mapDiv = document.getElementById("map");
-      mapDiv.innerHTML = '<div style="padding:20px;color:#123c7a;font-weight:bold;">No se pudo cargar el visor OpenLayers. Recargue la página o pruebe de nuevo en unos minutos.</div>';
-      throw new Error("OpenLayers no cargó");
-    }
 
     const chips = document.getElementById("chipsCapas");
     CONFIG.capas.forEach(function(c){
@@ -265,65 +257,43 @@
       downloadButtons.appendChild(grupo);
     });
 
-    // Visor robusto: primero OSM seguro; luego WMS como capa opcional
-    const osm = new ol.layer.Tile({
-      source: new ol.source.OSM()
-    });
+    if (typeof ol === "undefined") {
+      document.getElementById("map").innerHTML = '<div style="padding:20px;color:#123c7a;font-weight:bold;">No se pudo cargar OpenLayers.</div>';
+    } else {
+      const osm = new ol.layer.Tile({
+        source: new ol.source.OSM()
+      });
 
-    const scaleLine = new ol.control.ScaleLine({ units: "metric" });
+      const scaleLine = new ol.control.ScaleLine({ units: "metric" });
 
-    const map = new ol.Map({
-      target: "map",
-      layers: [osm],
-      controls: ol.control.defaults().extend([scaleLine]),
-      view: new ol.View({
-        center: ol.proj.fromLonLat(CONFIG.centroMapa),
-        zoom: CONFIG.zoomMapa
-      })
-    });
-
-    let wmsLayer = null;
-    try {
-      wmsLayer = new ol.layer.Tile({
-        source: new ol.source.TileWMS({
-          url: CONFIG.geoserverWmsBase,
-          params: {
-            "LAYERS": CONFIG.workspaceReal + ":" + CONFIG.capaInicial,
-            "TILED": true
-          },
-          serverType: "geoserver",
-          transition: 0,
-          crossOrigin: "anonymous"
+      const map = new ol.Map({
+        target: "map",
+        layers: [osm],
+        controls: ol.control.defaults().extend([scaleLine]),
+        view: new ol.View({
+          center: ol.proj.fromLonLat(CONFIG.centroMapa),
+          zoom: CONFIG.zoomMapa
         })
       });
-      map.addLayer(wmsLayer);
-    } catch (e) {
-      console.error("No se pudo agregar la capa WMS:", e);
+
+      map.on("pointermove", function(evt){
+        const lonLat = ol.proj.toLonLat(evt.coordinate);
+        document.getElementById("coordsText").textContent = lonLat[1].toFixed(6) + ", " + lonLat[0].toFixed(6);
+      });
+
+      const layerButtons = document.getElementById("layerButtons");
+      CONFIG.capas.forEach(function(capa){
+        const btn = document.createElement("button");
+        btn.className = "btn";
+        btn.textContent = capa.etiqueta;
+        btn.onclick = function(){
+          txt("capaInicial", capa.clave);
+        };
+        layerButtons.appendChild(btn);
+      });
+
+      setTimeout(function(){ map.updateSize(); }, 500);
     }
-
-    const coordsText = document.getElementById("coordsText");
-    map.on("pointermove", function(evt){
-      const lonLat = ol.proj.toLonLat(evt.coordinate);
-      coordsText.textContent = lonLat[1].toFixed(6) + ", " + lonLat[0].toFixed(6);
-    });
-
-    const layerButtons = document.getElementById("layerButtons");
-    CONFIG.capas.forEach(function(capa){
-      const btn = document.createElement("button");
-      btn.className = "btn";
-      btn.textContent = capa.etiqueta;
-      btn.onclick = function(){
-        txt("capaInicial", capa.clave);
-        if (wmsLayer) {
-          wmsLayer.getSource().updateParams({
-            "LAYERS": CONFIG.workspaceReal + ":" + capa.clave
-          });
-        }
-      };
-      layerButtons.appendChild(btn);
-    });
-
-    window.setTimeout(function(){ map.updateSize(); }, 500);
   </script>
 </body>
 </html>
