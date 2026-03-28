@@ -3,35 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Geoportal Funcional Pro - Eduardo Altamirano Vargas</title>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <title>Geoportal Funcional - Eduardo Altamirano Vargas</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@10.4.0/ol.css">
-  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=DY6BWkgpFRL4FAIQFol6BBD1a8ebhuoX2FKWPBTPW8RdiUYbEj9o2Kyfj9BLXl0khrDnO-QjNUcZwoP3cF-WJsv2ce-XcSg1FPl8_5aJMpPoCuFFXdy0k0myszML6gk_Q8RhiU7my6hwdd7rmYzjg3PEwA1CSv7M6X9UFzpXlhSv7Q9_U90qdjHZ-FlPvsakXzB3oA6_Zc9_1t7xDJ8ka17vLGafheqho4_hkoAaqipHK0wbBXvE-yR89ra6xsvZNdB2IPGVr1HnqJLKf321kg" charset="UTF-8"></script><style>
+  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=kdrXKV3Cc3lqwWtu94Lkuu4RK9qqb7B2Su45uhIGcnzGFiOd7FLuQcFyrSNQjz7SsEf6PedgT98DdGhTbrsz5RLa-_yQHjJhs1lOo9gG-kZT7dVnPF4F7anQgtYL7qj8qSqvHHmniz6PzA1Htil6kfAGioIrrX7sjfLaRDJzZj5xjcwJaTroql0Un4Cs5lm4rYV8lPcPmsLfKLiLvFNrTs9C1x_7znvCSwy0XujOUSjGCV8hk9GxlYyj4_e6qEJhkvSfp0RpK4l52jBkj5u9bA" charset="UTF-8"></script><style>
     :root{
-      --bg:#eef3f9;
-      --card:#ffffff;
-      --line:#d9e2ef;
-      --primary:#123c7a;
-      --primary-2:#1e5cb3;
-      --text:#1f2937;
-      --muted:#6b7280;
-      --shadow:0 10px 30px rgba(18,60,122,.10);
-      --radius:18px;
+      --bg:#eef3f9; --card:#ffffff; --line:#d9e2ef; --primary:#123c7a; --primary-2:#1e5cb3;
+      --text:#1f2937; --muted:#6b7280; --shadow:0 10px 30px rgba(18,60,122,.10); --radius:18px;
     }
     *{box-sizing:border-box}
-    html,body{height:100%}
     body{margin:0;font-family:Arial, Helvetica, sans-serif;background:var(--bg);color:var(--text)}
     .hero{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;padding:28px 18px 22px;box-shadow:var(--shadow)}
     .hero-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1.4fr .8fr;gap:18px;align-items:center}
     .hero h1,.hero h2,.hero h3,.hero p{margin:6px 0}
-    .hero h1{font-size:1.9rem}
-    .hero h2{font-size:1.15rem;font-weight:600}
-    .hero h3{font-size:1rem;font-weight:600;opacity:.95}
-    .hero p{opacity:.95}
     .logo-box{display:flex;justify-content:center;align-items:center}
-    .logo-box a{display:inline-block}
     .logo-box img{max-width:280px;width:100%;background:#fff;border-radius:16px;padding:10px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
-
     .layout{max-width:1400px;margin:20px auto;padding:0 16px 24px;display:grid;grid-template-columns:340px 1fr;gap:18px}
     .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
     .card + .card{margin-top:18px}
@@ -39,66 +24,27 @@
     .card-header h2,.card-header h3{margin:0;color:var(--primary)}
     .card-body{padding:16px 18px 18px}
     .muted{color:var(--muted);font-size:.94rem;line-height:1.45}
-    .chip{display:inline-block;font-size:.82rem;padding:6px 10px;border-radius:999px;background:#ecf3ff;color:var(--primary);margin:4px 6px 0 0;border:1px solid #cfe0ff}
     .btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-    .btn{display:inline-block;text-decoration:none;border:none;cursor:pointer;padding:10px 13px;border-radius:12px;background:var(--primary);color:#fff;font-size:.94rem;transition:.2s ease}
-    .btn:hover{background:#0d2f61}
+    .btn{display:inline-block;text-decoration:none;border:none;cursor:pointer;padding:10px 13px;border-radius:12px;background:var(--primary);color:#fff;font-size:.94rem}
     .btn.secondary{background:#4b5563}
-    .btn.secondary:hover{background:#374151}
     .btn.light{background:#edf4ff;color:var(--primary);border:1px solid #d2e3ff}
-    .btn.light:hover{background:#dfeeff}
+    .chip{display:inline-block;font-size:.82rem;padding:6px 10px;border-radius:999px;background:#ecf3ff;color:var(--primary);margin:4px 6px 0 0;border:1px solid #cfe0ff}
+    .download-group{margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
+    .download-group:first-child{margin-top:0;padding-top:0;border-top:none}
+    .download-title{font-weight:bold;color:var(--primary);margin-bottom:8px}
     .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     .stat{background:#f8fbff;border:1px solid var(--line);border-radius:14px;padding:12px}
     .stat .label{font-size:.84rem;color:var(--muted);margin-bottom:5px}
     .stat .value{font-size:1rem;font-weight:bold;color:var(--primary);word-break:break-word}
-    .download-group{margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
-    .download-group:first-child{margin-top:0;padding-top:0;border-top:none}
-    .download-title{font-weight:bold;color:var(--primary);margin-bottom:8px}
-
-    #map{width:100%;height:620px}
-    .map-info{margin-top:8px;font-size:.9rem;color:var(--muted)}
+    #map{width:100%;height:620px;background:#e5edf7}
     .coord-box{display:inline-block;background:#f8fbff;border:1px solid var(--line);padding:8px 10px;border-radius:10px}
     iframe{width:100%;border:none;display:block;background:#fff}
     .frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}
     .preview{width:100%;min-height:300px;border:1px solid var(--line);border-radius:14px;object-fit:contain;background:#f7fafc}
     .section-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
     footer{margin:26px 0 0;padding:16px;text-align:center;color:#475569;font-size:.92rem}
-
-    @media (max-width: 1100px){
-      .hero-inner{grid-template-columns:1fr}
-      .layout{grid-template-columns:1fr}
-      .section-grid{grid-template-columns:1fr}
-      #map{height:500px}
-    }
-    @media (max-width: 768px){
-      body{font-size:14px}
-      .hero{padding:18px 12px 16px}
-      .hero h1{font-size:1.25rem}
-      .hero h2{font-size:.95rem}
-      .hero h3{font-size:.9rem}
-      .layout{padding:0 10px 18px;gap:12px}
-      .card-header{padding:12px 14px 8px}
-      .card-body{padding:12px 14px 14px}
-      .stats{grid-template-columns:1fr}
-      .btn-group{flex-direction:column;align-items:stretch}
-      .btn{width:100%;text-align:center}
-      .logo-box img{max-width:180px}
-      #map{height:360px}
-      .preview{min-height:220px}
-      iframe#frameCV{height:280px}
-      iframe#frameQGIS{height:360px}
-      footer{padding:10px;font-size:.82rem}
-    }
-    @media (max-width: 480px){
-      .hero{padding:14px 10px}
-      .hero h1{font-size:1.05rem}
-      .hero h2,.hero h3,.hero p{font-size:.82rem}
-      .layout{padding:0 8px 16px}
-      #map{height:300px}
-      .preview{min-height:180px}
-      iframe#frameCV{height:240px}
-      iframe#frameQGIS{height:300px}
-    }
+    @media (max-width:1100px){.hero-inner{grid-template-columns:1fr}.layout{grid-template-columns:1fr}.section-grid{grid-template-columns:1fr}#map{height:500px}}
+    @media (max-width:768px){body{font-size:14px}.layout{padding:0 10px 18px;gap:12px}.stats{grid-template-columns:1fr}.btn-group{flex-direction:column}.btn{text-align:center}.logo-box img{max-width:180px}#map{height:360px}.preview{min-height:220px}iframe#frameCV{height:280px}iframe#frameQGIS{height:360px}}
   </style>
 </head>
 <body>
@@ -113,7 +59,7 @@
         <p><strong>Correo:</strong> <span id="correoHero"></span></p>
       </div>
       <div class="logo-box">
-        <a href="https://www.uasb.edu.bo/" target="_blank" rel="noopener noreferrer" aria-label="Sitio oficial UASB">
+        <a href="https://www.uasb.edu.bo/" target="_blank" rel="noopener noreferrer">
           <img id="logoInstitucional" src="" alt="">
         </a>
       </div>
@@ -121,7 +67,7 @@
   </header>
 
   <main class="layout">
-    <aside class="sidebar">
+    <aside>
       <section class="card">
         <div class="card-header"><h2>Información general</h2></div>
         <div class="card-body">
@@ -147,7 +93,7 @@
         <div class="card-body">
           <div class="btn-group">
             <a class="btn" id="linkWMS" href="#" target="_blank" rel="noopener noreferrer">Abrir WMS</a>
-            <a class="btn secondary" id="linkCV" href="cv.pdf" target="_blank" rel="noopener noreferrer">Abrir CV</a>
+            <a class="btn secondary" href="cv.pdf" target="_blank" rel="noopener noreferrer">Abrir CV</a>
             <a class="btn light" id="linkQGIS" href="#" target="_blank" rel="noopener noreferrer">Abrir QGIS Cloud</a>
             <a class="btn light" href="https://www.uasb.edu.bo/" target="_blank" rel="noopener noreferrer">Sitio oficial UASB</a>
           </div>
@@ -174,7 +120,7 @@
       </section>
     </aside>
 
-    <section class="main-panel">
+    <section>
       <section class="card">
         <div class="card-header"><h2>Mapa principal interactivo</h2></div>
         <div class="card-body" style="padding:0;">
@@ -197,7 +143,7 @@
         <section class="card">
           <div class="card-header"><h3>Hoja de vida / CV</h3></div>
           <div class="card-body">
-            <p class="muted">En esta sección se visualiza la hoja de vida en formato PDF. En algunos teléfonos puede abrirse mejor en una pestaña nueva con el botón "Abrir CV".</p>
+            <p class="muted">En esta sección se visualiza la hoja de vida en formato PDF.</p>
             <div class="frame"><iframe id="frameCV" src="cv.pdf" height="360" title="CV"></iframe></div>
           </div>
         </section>
@@ -226,7 +172,6 @@
       anio: 2026,
       logoURL: "https://cladera.org/foda/images/subcat-3619.jpg",
       logoAlt: "Logotipo UASB",
-      urlCV: "cv.pdf",
       urlQGIS: "https://qgiscloud.com/cel34/MapaQCloud_ealtamirano2/",
       wmsOpenUrl: "https://geoserver.idesinde.com:8443/geoserver/altamirano/wms?service=WMS&version=1.1.0&request=GetMap&layers=altamirano%3AVialidadWgs84&bbox=339066.5636%2C3481934.3625000007%2C377522.6485000001%2C3517734.8693000004&width=768&height=714&srs=EPSG%3A32613&styles=&format=image%2Fpng",
       geoserverWmsBase: "https://geoserver.idesinde.com:8443/geoserver/altamirano/wms",
@@ -257,17 +202,14 @@
     txt("bbox", JSON.stringify(CONFIG.bbox));
     txt("footerText", "© " + CONFIG.anio + " - " + CONFIG.autor + " | " + CONFIG.tituloGeoportal);
 
-    const logo = document.getElementById("logoInstitucional");
-    logo.src = CONFIG.logoURL;
-    logo.alt = CONFIG.logoAlt;
-
-    const correoLink = document.getElementById("correoLink");
-    correoLink.href = "mailto:" + CONFIG.correo;
-    correoLink.textContent = CONFIG.correo;
-
+    document.getElementById("logoInstitucional").src = CONFIG.logoURL;
+    document.getElementById("logoInstitucional").alt = CONFIG.logoAlt;
     document.getElementById("linkWMS").href = CONFIG.wmsOpenUrl;
     document.getElementById("linkQGIS").href = CONFIG.urlQGIS;
     document.getElementById("frameQGIS").src = CONFIG.urlQGIS;
+    const correoLink = document.getElementById("correoLink");
+    correoLink.href = "mailto:" + CONFIG.correo;
+    correoLink.textContent = CONFIG.correo;
 
     const chips = document.getElementById("chipsCapas");
     CONFIG.capas.forEach(function(c){
@@ -294,19 +236,15 @@
       { etiqueta: "KML", valor: "KML" },
       { etiqueta: "GML", valor: "GML2" }
     ];
-
     CONFIG.capas.forEach(function(capa){
       const grupo = document.createElement("div");
       grupo.className = "download-group";
-
       const titulo = document.createElement("div");
       titulo.className = "download-title";
       titulo.textContent = capa.etiqueta;
       grupo.appendChild(titulo);
-
       const fila = document.createElement("div");
       fila.className = "btn-group";
-
       formatos.forEach(function(formato){
         const a = document.createElement("a");
         a.className = "btn";
@@ -316,38 +254,45 @@
         a.textContent = formato.etiqueta;
         fila.appendChild(a);
       });
-
       grupo.appendChild(fila);
       downloadButtons.appendChild(grupo);
     });
 
-    const scaleLine = new ol.control.ScaleLine({ units: "metric" });
-
+    // Visor robusto: primero OSM seguro; luego WMS como capa opcional
     const osm = new ol.layer.Tile({
       source: new ol.source.OSM()
     });
 
-    const wmsLayer = new ol.layer.Tile({
-      source: new ol.source.TileWMS({
-        url: CONFIG.geoserverWmsBase,
-        params: {
-          "LAYERS": CONFIG.workspaceReal + ":" + CONFIG.capaInicial,
-          "TILED": true
-        },
-        serverType: "geoserver",
-        transition: 0
-      })
-    });
+    const scaleLine = new ol.control.ScaleLine({ units: "metric" });
 
     const map = new ol.Map({
       target: "map",
-      layers: [osm, wmsLayer],
+      layers: [osm],
       controls: ol.control.defaults().extend([scaleLine]),
       view: new ol.View({
         center: ol.proj.fromLonLat(CONFIG.centroMapa),
         zoom: CONFIG.zoomMapa
       })
     });
+
+    let wmsLayer = null;
+    try {
+      wmsLayer = new ol.layer.Tile({
+        source: new ol.source.TileWMS({
+          url: CONFIG.geoserverWmsBase,
+          params: {
+            "LAYERS": CONFIG.workspaceReal + ":" + CONFIG.capaInicial,
+            "TILED": true
+          },
+          serverType: "geoserver",
+          transition: 0,
+          crossOrigin: "anonymous"
+        })
+      });
+      map.addLayer(wmsLayer);
+    } catch (e) {
+      console.error("No se pudo agregar la capa WMS:", e);
+    }
 
     const coordsText = document.getElementById("coordsText");
     map.on("pointermove", function(evt){
@@ -361,13 +306,17 @@
       btn.className = "btn";
       btn.textContent = capa.etiqueta;
       btn.onclick = function(){
-        wmsLayer.getSource().updateParams({
-          "LAYERS": CONFIG.workspaceReal + ":" + capa.clave
-        });
         txt("capaInicial", capa.clave);
+        if (wmsLayer) {
+          wmsLayer.getSource().updateParams({
+            "LAYERS": CONFIG.workspaceReal + ":" + capa.clave
+          });
+        }
       };
       layerButtons.appendChild(btn);
     });
+
+    window.setTimeout(function(){ map.updateSize(); }, 500);
   </script>
 </body>
 </html>
